@@ -3,7 +3,8 @@ class App extends React.Component {
 
     state = {
         age: 12,
-        title: "Mon titre qui tue sa mère!"
+        title: "Mon titre qui tue sa mère!",
+        counter: 0
     }
 
     hello = () => {
@@ -13,13 +14,23 @@ class App extends React.Component {
         //this.state.title = "Mon titre qui déglingue tout";
 
         // Bieeeennnnnnnn
-        // this.setState({
-        //     title: "Mon titre qui déglingue tout"
-        // })
+        this.setState({
+            title: "Mon titre qui déglingue tout"
+        })
 
         // this.state.title = this.state.title + "Et ta grand-mère!";
-        this.setState({
-            title: this.state.title + "Et ta grand-mère!"
+        // Fonctionnement Synchrone, hors le mieux ce serait d'exploiter
+        // le principe asynchrone de setState
+        // this.setState({
+        //     title: this.state.title + "Et ta grand-mère!"
+        // })
+
+        // Objet qui soit le retour d'une fonction, avec pour paramètre 
+        // le state avant l'exécution de la fonction
+        this.setState(function(prevState) {
+            return {
+                title: prevState.title + "Et ta grand-mère!"
+            }
         })
     }
 
@@ -32,6 +43,14 @@ class App extends React.Component {
         console.log(this.state.age);
     }
 
+    incrementCounter = () => {
+        console.log(this.state.counter);
+
+        this.setState({
+            counter: this.state.counter + 1
+        })
+    }
+
     render() {
 
         return (
@@ -42,6 +61,7 @@ class App extends React.Component {
 
                 <h2 className="bidule"><span onClick={this.hello}>J'ai</span> {this.state.age} ans</h2>
                 
+                <button onClick={this.incrementCounter}>Cliquez-moi: {this.state.counter}</button>
 
                 <button onClick={this.hiBudgie}>Mon vieil élan</button>
             </section>
