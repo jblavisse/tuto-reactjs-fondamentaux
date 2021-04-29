@@ -2,11 +2,12 @@
 class App extends React.Component {
 
     state = {
-        age: 12
+        age: 12,
+        title: "Mon titre qui tue sa mère!"
     }
 
-    hello() {
-        console.log("coucouuuuuuu");
+    hello = () => {
+        console.log(this.state.title);
     }
 
     hoverboard() {
@@ -22,7 +23,7 @@ class App extends React.Component {
 
         return (
             <section>
-                <h1 onClick={this.hello} onMouseOver={this.hoverboard}>Youhou la familleeeeeee!</h1>
+                <h1 onClick={this.hello} onMouseOver={this.hoverboard}>{this.state.title}</h1>
                 
                 <a href="https://www.google.fr">On souffre</a>
 
