@@ -8,6 +8,19 @@ class App extends React.Component {
 
     hello = () => {
         console.log(this.state.title);
+
+        // VERY VERY BAD PRATICE. NE MARCHE PAS SVP.
+        //this.state.title = "Mon titre qui déglingue tout";
+
+        // Bieeeennnnnnnn
+        // this.setState({
+        //     title: "Mon titre qui déglingue tout"
+        // })
+
+        // this.state.title = this.state.title + "Et ta grand-mère!";
+        this.setState({
+            title: this.state.title + "Et ta grand-mère!"
+        })
     }
 
     hoverboard() {
