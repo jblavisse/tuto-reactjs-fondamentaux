@@ -1,54 +1,56 @@
-
 class App extends React.Component {
-
     state = {
-        // 1. On crée un état, dont on sait qu'on veut que ça change avec le temps
-        // avec une valeur au départ
-        age: ""
+        search: "",
+        history: ["trucmuche"]
+    }
+    
+    changeSearch = (event) => {
+        this.setState({
+            search: event.target.value
+        })
     }
 
-    // 3. On crée la fonction qui se lance au onChange
-    changeAge = (event) => {
+    keepHistory = (event) => {
+        event.preventDefault();
 
-        // L'élément sur lequel il y a eu interaction de changement
-        // Hors ici, il s'agit du champ de texte ageInput
-        console.log(event.target)
+        // ..., ça décompose tous les éléments du tableau un par un
+        // si, montab = [1,2]
+        // donc, let qqchose = [...montab, "ddd"]
+        // à la fin, qqchose = [1,2,"ddd"]
+        let newHistory = [...this.state.history, this.state.search]
 
-        // 4. La valeur de age sera dorénavant égal à ce qu'il y avait précédemment + 
-        // La nouvelle action de l'utilisateur
-        // Si l'utilisateur appuie sur suppr: event.target.value y a une lettre en moins
-
-        // Si l'utilisateur ajoute une lettre: event.target.value va être égal à ce qu'il y  
-        // avait avant avec cette lettre en plus
         this.setState({
-            age: event.target.value
+            history: newHistory
         })
     }
 
     render() {
-
         return (
-            <section>
-                <h1 className="maintitle">J'ai {this.state.age} ans</h1>
-                
+            <div className="app">
+                <h1 className="maintitle">Voici mon lien</h1>
+
+                {/* <a href={"https://www.google.fr/search?q="+ this.state.search}> */}
+
+                <a href={`https://www.google.fr/search?q=${this.state.search}`}>
+                    https://www.google.fr/search?q={this.state.search}
+                </a>
 
                 <form className="form">
-                    <label htmlFor="ageInput">Ton âge:</label>
+                    <label htmlFor="searchInput">Votre recherche: </label>
 
-                    {/* 
-                    2. Ici, on vient modifier mon état âge grâce à un champ de texte
-                        Dès qu'on appuie sur une touche, onChange se lance
-                        La valeur du champ de texte est relié à l'état âge
-                    */}
-                    <input type="text" id="ageInput" 
-                        onChange={this.changeAge} 
-                        value={this.state.age} />
+                    <input type="text" id="searchInput" 
+                        onChange={this.changeSearch}
+                        value={this.state.search} />
+
+                    <input onClick={this.keepHistory}
+                    type="submit" value="Garder en mémoire"/>
                 </form>
-                
-            </section>
-
+            </div>
         )
     }
 }
+
+
+
 
 ReactDOM.render(<App/>, document.querySelector('#app'));
